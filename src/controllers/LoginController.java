@@ -33,7 +33,7 @@ public class LoginController extends HttpServlet {
 		String name = request.getParameter("username");
 		String pass = request.getParameter("password");
 		LoginBean bean = new LoginBean();
-		bean.setName(name);
+		bean.setUsername(name);
 		bean.setPassword(pass);
 		boolean status = bean.validate();
 		if(status==true) {

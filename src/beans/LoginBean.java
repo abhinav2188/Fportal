@@ -3,15 +3,15 @@ package beans;
 public class LoginBean implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private String name,password;
-	public void setName(String name) {
-		this.name = name;
+	private String username,password;
+	public void setUsername(String name) {
+		this.username = name;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	public String getName() {
-		return name;
+		return username;
 	}
 	public String getPassword() {
 		return password;
