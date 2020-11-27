@@ -1,4 +1,4 @@
-package beans;
+package dto;
 
 public class LoginBean implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.LoginBean;
+import dto.LoginBean;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {

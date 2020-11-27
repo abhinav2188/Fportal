@@ -1,8 +1,8 @@
 package dao;
 
-import beans.LoginBean;
-
 import java.sql.*;
+
+import dto.LoginBean;
 public class LoginDao {
 	public static Connection getConnection() {
 		Connection con = null;
