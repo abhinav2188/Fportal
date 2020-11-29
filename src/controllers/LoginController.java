@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dto.LoginBean;
+import dao.UserDao;
+import dto.LoginRequestDto;
+import dto.LogResponseDto;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -23,29 +25,36 @@ public class LoginController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("login get request");
-		RequestDispatcher rd = request.getRequestDispatcher("/");
+		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("login request");
 		PrintWriter pw = response.getWriter();
-		String name = request.getParameter("username");
-		String pass = request.getParameter("password");
-		LoginBean bean = new LoginBean();
-		bean.setUsername(name);
-		bean.setPassword(pass);
-		boolean status = bean.validate();
-		if(status==true) {
-			System.out.println("validated");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		LoginRequestDto dto = new LoginRequestDto();
+		dto.setEmail(email);
+		dto.setPassword(password);
+		
+		UserDao dao = new UserDao(request.getServletContext());
+		
+		LogResponseDto resDto = dao.loginUser(dto);
+		System.out.println(resDto.toString());
+		if(resDto.getUid() != -1) {
 			HttpSession session = request.getSession(true);
-			session.setAttribute("uuid", bean.getName());
-			pw.print("<p style='color:green; padding:1rem;'>Login Successful!</p>");
-			request.getRequestDispatcher("/").include(request, response);
+			session.setAttribute("uid", resDto.getUid());
+			request.setAttribute("msg","logged in as "+resDto.getFullName());
+			session.setAttribute("uname", resDto.getFullName());
+			request.getRequestDispatcher("popup.jsp").include(request, response);
+			request.getRequestDispatcher("home.jsp").include(request, response);
 		}else {
-			pw.print("<p style='color:red; padding:1rem;'>Incorrect Username or password!</p>");
-			request.getRequestDispatcher("/").include(request, response);
+			request.setAttribute("msg", resDto.getErrorMsg());
+			request.getRequestDispatcher("popup.jsp").include(request, response);
+			request.getRequestDispatcher("login.jsp").include(request, response);			
 		}
+
 		pw.close();
 	}
 }

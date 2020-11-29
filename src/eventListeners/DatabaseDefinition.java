@@ -130,7 +130,7 @@ public class DatabaseDefinition implements ServletContextListener {
 					+"uid INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, "
 					+"first_name VARCHAR(20) NOT NULL ,"
 					+"last_name VARCHAR(20), "
-					+"mobile INT NOT NULL UNIQUE,"
+					+"mobile char(10) NOT NULL UNIQUE,"
 					+"email VARCHAR(30) NOT NULL UNIQUE ,"
 					+"password varchar(30) NOT NULL,"
 					+"create_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"

@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,12 +20,12 @@ public class LogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
-			session.removeAttribute("uuid");
+			session.removeAttribute("uid");
 			session.invalidate();
 		}
-		PrintWriter pw = response.getWriter();
-		pw.print("<p style='padding:1rem;color:blue;'>logged out successfully!</p>");
-		request.getRequestDispatcher("/").include(request, response);
+		request.setAttribute("msg","logged out successfully");
+		request.getRequestDispatcher("popup.jsp").include(request, response);
+		request.getRequestDispatcher("home.jsp").include(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

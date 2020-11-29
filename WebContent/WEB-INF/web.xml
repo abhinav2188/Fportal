@@ -12,4 +12,8 @@
     <param-name>dBPassword</param-name>
     <param-value></param-value>
   </context-param>
+  <servlet-mapping>
+  	<servlet-name> default </servlet-name>
+  	<url-pattern>*.css</url-pattern>
+  </servlet-mapping>
 </web-app>

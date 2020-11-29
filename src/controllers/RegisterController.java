@@ -1,57 +1,63 @@
 package controllers;
 
 import dao.UserDao;
-import modals.User;
+import dto.LogResponseDto;
+import dto.RegisterRequestDto;
 
 import java.io.IOException;
-import java.sql.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class RegisterController
- */
+
 @WebServlet("/register")
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public RegisterController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("register get request");
+		RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+		rd.forward(request, response);
 	}
+	
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("regiater post req");
-		User user = new User();
+		System.out.println("register post req");
 		
-//		System.out.println(request.getParameter("first_name"));
-		user.setFirstName(request.getParameter("first_name"));
-		user.setLastName(request.getParameter("last_name"));
-//		System.out.println(request.getParameter("dob"));
-		user.setEmail(request.getParameter("email"));
-		user.setPassword(request.getParameter("password"));
+		RegisterRequestDto dto = new RegisterRequestDto();
+		dto.setFirstName(request.getParameter("first_name"));
+		dto.setLastName(request.getParameter("last_name"));
+		dto.setEmail(request.getParameter("email"));
+		dto.setPassword(request.getParameter("password"));
+		dto.setMobile(request.getParameter("mobile"));
 		
 		UserDao dao = new UserDao(request.getServletContext());
-		dao.addUser(user);
+		LogResponseDto resDto = dao.registerUser(dto);
 		
+		
+		System.out.println(resDto.toString());
+		if(resDto.getUid() != -1) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("uid", resDto.getUid());
+			request.setAttribute("msg","new user registered");
+			session.setAttribute("uname", resDto.getFullName());
+			request.getRequestDispatcher("popup.jsp").include(request, response);
+			request.getRequestDispatcher("home.jsp").include(request, response);
+		}else {
+			request.setAttribute("msg", resDto.getErrorMsg());
+			request.getRequestDispatcher("popup.jsp").include(request, response);
+			request.getRequestDispatcher("register.jsp").include(request, response);			
+		}
+
 	}
 
 }

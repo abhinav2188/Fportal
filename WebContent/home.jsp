@@ -1,5 +1,7 @@
  <%@ include file="header.jsp" %>
 
-	<p>Welcome to your profile</p>
+ 	<div class="top-container">
+		<p>Kisaan Seva Content</p>
+	</div>
 
  <%@ include file="footer.jsp" %>

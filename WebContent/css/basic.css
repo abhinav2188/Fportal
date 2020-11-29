@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;500&display=swap');
+
+body{
+	margin:0rem;
+	font-family: 'Source Sans Pro', sans-serif;
+	display: flex;
+	min-height: 100vh;
+	background-color: #fff;
+	align-items: center;
+	flex-direction: column;
+}
+a{
+	text-transform : none;
+	padding : 0.25rem 0.5rem;
+}
+.top-container{
+	box-sizing: border-box;
+	display: flex;
+	margin: 1rem 0;
+	flex-grow:1;
+}
+.container{
+	padding : 1rem;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-items: center;
+}
+
+.shadow{
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.02);
+}
