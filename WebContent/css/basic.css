@@ -11,7 +11,7 @@ body{
 	flex-direction: column;
 }
 a{
-	text-transform : none;
+	text-decoration : none;
 	padding : 0.25rem 0.5rem;
 }
 .top-container{

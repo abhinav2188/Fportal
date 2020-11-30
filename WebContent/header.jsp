@@ -23,10 +23,32 @@
 	display: flex;
 	width: 80%;
 	justify-content: space-between;
+	align-items: center;
 }
 .font-logo{
 	font-family: 'Alegreya Sans SC', sans-serif;
 	font-size: 1.25rem;
+}
+.brand-logo{
+display:flex;
+flex-direction:column;
+align-items: center;
+margin-right: 1rem;
+}
+.header-link{
+	color: #111;
+	text-decoration: none;
+}
+.header-link:hover{
+	color:#adce74;
+}
+.header-link:active{
+font-weight : 700;
+color: #adce74;
+}
+.left{
+display:flex;
+align-items: center;
 }
 </style>
 </head>
@@ -34,7 +56,15 @@
 	<header class="header shadow">
 		<div class="header-container">
 			<div class="left">
-				<a class="font-logo" href="home" >Kisaan Seva</a>
+			<a class="brand-logo header-link" href="home">
+				<span style="width:3rem;">
+					<%@ include file="assets/icon.jsp" %>
+				</span>
+				<span class="font-logo">Kisaan Seva</span>
+			</a>
+			<a class="header-link" href="contact">Contact</a>
+			<a class="header-link" href="about">About</a>
+			<a class="header-link" href="inventory">Inventory</a>
 			</div>
 			<div class="right">
 			<%
@@ -42,13 +72,13 @@
 			System.out.println("header "+s.getAttribute("uid")+s.getAttribute("uname"));
 			if(s.getAttribute("uid") == null){
 			%>
-				<a href="login">Login</a>
-				<a href="register">Register</a>				
+				<a class="header-link" href="login">Login</a>
+				<a class="header-link" href="register">Register</a>				
 			<%
 			}else{
 			%>
-				<a href="profile"><%= s.getAttribute("uname")%></a>
-				<a href="logout">Logout</a>			
+				<a class="header-link" href="profile"><%= s.getAttribute("uname")%></a>
+				<a class="header-link" href="logout">Logout</a>			
 			<%}%>
 			</div>
 		</div>

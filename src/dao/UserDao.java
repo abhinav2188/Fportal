@@ -3,6 +3,7 @@ package dao;
 import dto.LoginRequestDto;
 import dto.LogResponseDto;
 import dto.RegisterRequestDto;
+import modals.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -95,4 +96,20 @@ public class UserDao {
 		}
 		return resDto;
 	}
+	
+	public User getUser(int id) {
+		User user = new User();
+		Connection conn = getConnection();
+		if(conn!= null) {
+			try {
+				String query = "Select * from users where uid=?";
+				PreparedStatement stmt = conn.prepareStatement(query);
+				
+			}catch(SQLException e) {
+				
+			}
+		}
+		return user;
+	}
+	
 }
