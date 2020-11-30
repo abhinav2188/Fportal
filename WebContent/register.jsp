@@ -16,6 +16,9 @@ background-color: #d2d2d2;
 border-radius: 0.25rem;
 border:0;
 }
+.input2:invalid{
+background-color: #ffd2d2;
+}
 .action-button{
 	color:#fff;
 	border:0;
@@ -24,6 +27,7 @@ border:0;
 	background-color: #d2d2d2;
 	font-size: 1.1rem;
 	font-weight: 300;
+	border-radius: 0.25rem;
 }
 .input2:focus{
 	outline: none;
@@ -53,24 +57,24 @@ border:0;
 		<div class="input-container">
 		<div class="grid-col-2">
 			<label for="last-name" class="label">First Name: 
-			<input class="input2" type="text" id="last-name" name="first_name" required/> 
+			<input class="input2" type="text" id="last-name" name="first_name" required pattern="[a-zA-Z]{3,30}" title="should contain only alphabets"/> 
 			</label>
 			<label for="first-name" class="label">Last Name: 
-			<input class="input2" type="text" id="first-name" name="last_name"/> 
+			<input class="input2" type="text" id="first-name" name="last_name" pattern="[a-zA-Z]{3,30}" title="should contain only alphabets"/> 
 			</label>
 		</div>
 			<label for="mobile" class="label">Mobile: 
-			<input class="input2" type="text" id="mobile" name="mobile" required pattern="[0-9]{10}"/> 
+			<input class="input2" type="text" id="mobile" name="mobile" required pattern="[0-9]{10}" title="should contain 10 digits"/> 
 			</label>
 			<label for="email" class="label">Email: 
 			<input class="input2" type="email" id="email" name="email" required/> 
 			</label>
 		<div class="grid-col-2">
 			<label for="password" class="label">Password:
-			<input class="input2" type="password" id="password" name="password" required maxlength="30" /> 
+			<input class="input2" type="password" id="password" name="password" required minlength="8" maxlength="30" /> 
 			</label>
-			<label for="confirm-password" class="label">Confirm Password:
-			<input class="input2" type="password" id="confirm-password" name="confirm_password" required maxlength="30" /> 
+			<label for="confirm_password" class="label">Confirm Password:
+			<input class="input2" type="password" id="confirm_password" name="confirm_password" required minlength="8" maxlength="30"/> 
 			</label>
 		</div>	
 		</div>
@@ -80,3 +84,17 @@ border:0;
 </div>
 
 <%@ include file="footer.jsp" %>
+<script>
+var password = document.getElementById("password");
+var confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+if(password.value != confirm_password.value) {
+  confirm_password.setCustomValidity("Passwords Don't Match");
+} else {
+  confirm_password.setCustomValidity('');
+}
+}
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
