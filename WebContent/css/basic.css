@@ -17,8 +17,11 @@ a{
 .top-container{
 	box-sizing: border-box;
 	display: flex;
+	flex-direction:column;
 	margin: 1rem 0;
 	flex-grow:1;
+	width: 65%;
+	
 }
 .container{
 	padding : 1rem;
